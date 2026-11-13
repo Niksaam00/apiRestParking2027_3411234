@@ -23,6 +23,8 @@ public interface RegistroParqueoRepository extends JpaRepository<RegistroParqueo
 
 	Optional<RegistroParqueo> findByVehiculoPlacaAndFechaSalidaIsNull(String placa);
 
+	List<RegistroParqueo> findAllByOrderByFechaEntradaDesc();
+
 	List<RegistroParqueo> findByFechaSalidaIsNullOrderByFechaEntradaDesc();
 
 	List<RegistroParqueo> findByFechaSalidaIsNotNullOrderByFechaEntradaDesc();
