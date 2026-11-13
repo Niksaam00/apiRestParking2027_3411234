@@ -1,5 +1,6 @@
 package com.sena.apiparking.service;
 
+import com.sena.apiparking.repository.VehiculoRepository;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -10,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sena.apiparking.dto.CobroDetalle;
 import com.sena.apiparking.dto.TarifaRequest;
 import com.sena.apiparking.dto.TarifaResponse;
-import com.sena.apiparking.exception.ApiException;
+import com.sena.apiparking.esception.ApiException;
 import com.sena.apiparking.model.Tarifa;
 import com.sena.apiparking.model.TipoVehiculo;
 import com.sena.apiparking.repository.TarifaRepository;
@@ -21,7 +22,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TarifaService {
 
+	private final VehiculoRepository vehiculoRepository;
 	private final TarifaRepository tarifaRepo;
+
+	TarifaService(VehiculoRepository vehiculoRepository) {
+		this.vehiculoRepository = vehiculoRepository;
+	}
 
 	/** Crea una nueva tarifa vigente para el tipo y cierra la anterior. */
 	@Transactional
@@ -29,7 +35,7 @@ public class TarifaService {
 		LocalDateTime ahora = ZonaHoraria.ahora();
 		tarifaRepo.bloquearVigente(req.tipo()).ifPresent(t -> t.setVigenteHasta(ahora));
 		Tarifa nueva = tarifaRepo.save(Tarifa.builder().tipo(req.tipo()).valorHora(req.valorHora())
-				.valorFraccion(req.valorFraccion()).fraccionMinutos(req.fraccionMinutos()).vigenteDesde(ahora).build());
+				.valorFraccion(req.valorFraccion()).fraccionMinutos(req.fraccionMinuto()).vigenteDesde(ahora).build());
 		return TarifaResponse.de(nueva);
 	}
 
@@ -44,7 +50,7 @@ public class TarifaService {
 	@Transactional(readOnly = true)
 	public TarifaResponse obtener(Long id) {
 		return TarifaResponse.de(
-				tarifaRepo.findById(id).orElseThrow(() -> ApiException.notFound("Tarifa " + id + " no encontrada")));
+				tarifaRepo.findById(id).orElseThrow(() -> vehiculoRepository.notFound("Tarifa " + id + " no encontrada")));
 	}
 
 	/**

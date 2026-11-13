@@ -10,7 +10,7 @@ import com.sena.apiparking.dto.CobroDetalle;
 import com.sena.apiparking.dto.EntradaRequest;
 import com.sena.apiparking.dto.RegistroResponse;
 import com.sena.apiparking.dto.VehiculoResponse;
-import com.sena.apiparking.exception.ApiException;
+import com.sena.apiparking.esception.ApiException;
 import com.sena.apiparking.model.EspacioParqueo;
 import com.sena.apiparking.model.EstadoEspacio;
 import com.sena.apiparking.model.RegistroParqueo;
