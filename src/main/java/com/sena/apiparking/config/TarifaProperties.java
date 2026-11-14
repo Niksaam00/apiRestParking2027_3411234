@@ -16,7 +16,7 @@ import lombok.Setter;
 @Setter
 @Component
 @ConfigurationProperties(prefix = "parking.tarifa")
-public class TarifaProperties {
+public class TarifaProperties { 
 
 	private int fraccionMinutos = 15;
 	private Map<TipoVehiculo, Valores> tipos = new HashMap<>();
