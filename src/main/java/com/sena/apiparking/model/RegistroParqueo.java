@@ -38,6 +38,6 @@ public class RegistroParqueo {
 	@Column(nullable = false)
 	private LocalDateTime fechaEntrada;
 	private LocalDateTime fechaSalida;
-	private Double valorPagadp;
+	private Double valorPagado;
 
 }

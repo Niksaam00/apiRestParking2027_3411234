@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sena.apiparking.dto.EspacioLoteRequest;
 import com.sena.apiparking.dto.EspacioRequest;
 import com.sena.apiparking.dto.EspacioResponce;
-import com.sena.apiparking.dto.EspacioResponce;
 import com.sena.apiparking.esception.ApiException;
 import com.sena.apiparking.model.EspacioParqueo;
 import com.sena.apiparking.model.EstadoEspacio;
@@ -87,7 +86,7 @@ public class EspacioService {
 		if (e.getEstado() == EstadoEspacio.OCUPADO) {
 			throw ApiException.conflict("No se puede eliminar un espacio ocupado");
 		}
-		if (registroRepo.existsByEspacio(e)) {
+		if (registroRepo.existsBy(e)) {
 			throw ApiException.conflict("El espacio tiene historial de registros y no puede eliminarse");
 		}
 		espacioRepo.delete(e);

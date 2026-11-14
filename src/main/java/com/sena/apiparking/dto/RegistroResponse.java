@@ -10,7 +10,7 @@ public record RegistroResponse(Long idRegistro, String placa, TipoVehiculo tipoV
 
 	public static RegistroResponse de(RegistroParqueo r, CobroDetalle cobro) {
 		return new RegistroResponse(r.getId_registro(), r.getVehiculo().getPlaca(), r.getVehiculo().getTipo(),
-				r.getEspacio().getNumero(), r.getFechaEntrada(), r.getFechaSalida(), r.getValorPagadp(), cobro);
+				r.getEspacio().getNumero(), r.getFechaEntrada(), r.getFechaSalida(), r.getValorPagado(), cobro);
 	}
 
 }

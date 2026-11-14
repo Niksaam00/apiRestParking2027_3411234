@@ -1,6 +1,5 @@
 package com.sena.apiparking.service;
 
-import com.sena.apiparking.repository.VehiculoRepository;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -23,14 +22,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TarifaService {
 
-	private final VehiculoRepository vehiculoRepository;
 	private final TarifaRepository tarifaRepo;
 
-	TarifaService(VehiculoRepository vehiculoRepository) {
-		this.vehiculoRepository = vehiculoRepository;
-	}
-
-	/** Crea una nueva tarifa vigente para el tipo y cierra la anterior. */
 	@Transactional
 	public TarifaResponse crear(TarifaRequest req) {
 		LocalDateTime ahora = ZonaHoraria.ahora();
@@ -51,7 +44,7 @@ public class TarifaService {
 	@Transactional(readOnly = true)
 	public TarifaResponse obtener(Long id) {
 		return TarifaResponse.de(
-				tarifaRepo.findById(id).orElseThrow(() -> vehiculoRepository.notFound("Tarifa " + id + " no encontrada")));
+				tarifaRepo.findById(id).orElseThrow(() -> ApiException.notFound("Tarifa " + id + "no encontrada")));
 	}
 
 	/**
